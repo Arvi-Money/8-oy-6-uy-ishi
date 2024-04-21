@@ -1,5 +1,7 @@
 import { Autocomplete, CircularProgress, Grid, TextField } from "@mui/material";
-import useAxios from "../hooks/useAxios";
+// import useAxios from "../hooks/useAxios";
+import Data from '../data/CurrrencyFlags.json'
+import { useState } from "react";
 
 interface SelectCountryProps {
     value: string; 
@@ -8,7 +10,9 @@ interface SelectCountryProps {
 }
 
 const SelectCountry = ({ value, setValue, label }: SelectCountryProps) => {
-    const [data, loaded, error] = useAxios<any[]>("https://restcountries.com/v3.1/all");
+    const [data, setData] = useState<any>(Data);
+    const [error, setError] = useState<Error | null>(null);
+    const [loaded, setLoaded] = useState<boolean>(false);
 
     if (loaded) {
         return (
@@ -22,9 +26,9 @@ const SelectCountry = ({ value, setValue, label }: SelectCountryProps) => {
         return "Something went wrong";
     }
 
-    const filteredCountries = data.filter(item => "currencies" in item); // O'zgaruvchilarni nomlash
+    const filteredCountries = data.filter(item => "currencies" in item); 
     const countryOptions = filteredCountries.map(item => {
-        return `${item.flag} ${Object.keys(item.currencies)[0]} - ${item.name.common}`;
+        return `${data.flag} ${Object.keys(data.currency.code)[0]} - ${data.name}`;
     });
 
     return (

@@ -6,7 +6,7 @@ import SwitchCurrency from "./SwitchCurrency";
 import { useContext } from "react";
 import { CurrencyContext } from "../context/CurrencyContext";
 import { CurrencyContextType } from "../context/CurrencyContext";
-import axios from "axios";
+// import axios from "axios";
 
 const Card: React.FC = () => {
     const {
@@ -19,21 +19,31 @@ const Card: React.FC = () => {
     const [resultCurrency, setResultCurrency] = useState<number>(0);
     const codeFromCurrency = fromCurrency.split(" ")[1];
     const codeToCurrency = toCurrency.split(" ")[1];    
-console.log(resultCurrency);
 
-    useEffect(() => {
-        if (firstAmount) {
-            axios.get("/fetch-all?from=USD", {
-                params: {
-                    apikey: "fca_live_EaAh6LWnAZpcg4a0dV8zjua4B8Anhu0W8Jxsc81w",
-                    base_currency: codeFromCurrency,
-                    currencies: codeToCurrency
-                }
-            })
-            .then(response => setResultCurrency(response.data.data[codeToCurrency]))
-            .catch(error => console.log(error));
-        }   
-    }, [firstAmount, fromCurrency, toCurrency]);
+
+const apiKey = 'cd08b145e9-b169e68d74-sca1ut'; 
+
+const fetchData = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'apikey': apiKey,
+        'base-currency': codeFromCurrency,
+        'currencies': codeToCurrency
+    }
+};
+
+useEffect(() => {
+    fetch(`https://fetch-all?from=USD`, fetchData)
+        .then(response => {
+            return response.json();
+        })
+        .then(response => setResultCurrency(response.data.data[codeToCurrency]))
+        .catch(error => console.log(error));
+}, [firstAmount, fromCurrency, toCurrency]);
+console.log(fetchData);
+
+
 
     const boxStyles: React.CSSProperties = {
         margin: "2.5rem auto",

@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { CurrencyContext } from "../context/CurrencyContext"
 
 const InputAmount = () => {
-const {firstAmount, setFirstAmount} = useContext(CurrencyContext)
+const {firstAmount, setFirstAmount} = useContext<number>(CurrencyContext)
 
   return (
     <Grid item md>
