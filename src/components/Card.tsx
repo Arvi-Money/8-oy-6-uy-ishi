@@ -23,7 +23,7 @@ const Card: React.FC = () => {
         position: "relative",
         textAlign: "center",
         color: "#222",
-        minHeight: "20rem",
+        minHeight: "10rem",
         borderRadius: 2,
         padding: "4rem 2rem",
         // left: "20rem"
