@@ -1,22 +1,28 @@
-import React, { createContext, ReactNode } from "react";
+import React, { createContext, ReactNode, useState } from "react";
 
-interface CurrencyContextType {
-    // Contextning o'zining ma'lumot strukturasini ko'rsating
-    // Masalan:
-    // user: User | null;
-    // isLoggedIn: boolean;
+export interface CurrencyContextType {
+    fromCurrency: string;
+    setFromCurrency: (currency: string) => void;
+    toCurrency: string;
+    setToCurrency: (currency: string) => void;
+    firstAmount: number;
+    setFirstAmount: (amount: number) => void
 }
 
-// Context yaratish
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
-// Provider komponenti
 const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [fromCurrency, setFromCurrency] = useState<string>("EURO - Euro");
+    const [toCurrency, setToCurrency] = useState<string>("SGD - Singapore Dollar");
+    const [firstAmount, setFirstAmount] = useState<string>("");
+
     const value: CurrencyContextType = {
-        // Context ma'lumotlari
-        // Masalan:
-        // user: { name: "John", age: 30 },
-        // isLoggedIn: true,
+        fromCurrency,
+        setFromCurrency,
+        toCurrency,
+        setToCurrency,
+        firstAmount,
+        setFirstAmount
     };
 
     return (

@@ -2,8 +2,8 @@ import { Autocomplete, CircularProgress, Grid, TextField } from "@mui/material";
 import useAxios from "../hooks/useAxios";
 
 interface SelectCountryProps {
-    value: any;
-    setValue: (value: any) => void;
+    value: string; 
+    setValue: (value: string) => void;
     label: string;
 }
 
@@ -22,20 +22,20 @@ const SelectCountry = ({ value, setValue, label }: SelectCountryProps) => {
         return "Something went wrong";
     }
 
-    const dataFilter = data.filter(item => "currencies" in item);
-    const dataCountries = dataFilter.map(item => {
+    const filteredCountries = data.filter(item => "currencies" in item); // O'zgaruvchilarni nomlash
+    const countryOptions = filteredCountries.map(item => {
         return `${item.flag} ${Object.keys(item.currencies)[0]} - ${item.name.common}`;
     });
-    console.log(11, dataFilter);
 
     return (
         <Grid item xs={12} md={3}>
             <Autocomplete
                 value={value}
+                disableClearable
                 onChange={(event, newValue) => {
                     setValue(newValue);
                 }}
-                options={dataCountries}
+                options={countryOptions}
                 renderInput={(params) => <TextField {...params} label={label} />}
             />
         </Grid>

@@ -5,9 +5,12 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css'
+import { CurrencyProvider } from './context/CurrencyContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>
+  <CurrencyProvider>
     <App />
+    </CurrencyProvider>
   </>,
 )
