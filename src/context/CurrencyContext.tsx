@@ -5,7 +5,7 @@ export interface CurrencyContextType {
     setFromCurrency: (currency: string) => void;
     toCurrency: string;
     setToCurrency: (currency: string) => void;
-    firstAmount: number;
+    firstAmount: any;
     setFirstAmount: (amount: number) => void
 }
 
@@ -14,7 +14,8 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [fromCurrency, setFromCurrency] = useState<string>("EURO - Euro");
     const [toCurrency, setToCurrency] = useState<string>("SGD - Singapore Dollar");
-    const [firstAmount, setFirstAmount] = useState<string>("");
+    const [firstAmount, setFirstAmount] = useState<any>([]);
+console.log(firstAmount);
 
     const value: CurrencyContextType = {
         fromCurrency,
